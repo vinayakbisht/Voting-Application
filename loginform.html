@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: rgb(164, 95, 228);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+        }
+
+        form {
+            width: 400px;
+            padding: 25px;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            border-radius: 5px;
+
+        }
+
+        .field {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        label {
+
+            padding: 20px;
+        }
+
+        input {
+            width: 55%;
+            padding: 20px;
+            outline: none;
+            border: none;
+            border-bottom: 1px solid rgb(100, 25, 157);
+        }
+
+        button {
+            padding: 10px 40px;
+            color: white;
+            background-color: rgb(198, 16, 16);
+            margin-block: 15px;
+            border: none;
+
+        }
+    </style>
+    <script defer>
+        function formatAadhar(input) {
+            let value = input.value.replace(/\D/g, '').substring(0, 12); // Remove non-digits, max 12 digits
+            let formatted = value.replace(/(\d{4})(\d{4})(\d{0,4})/, function (_, g1, g2, g3) {
+                return g3 ? `${g1} ${g2} ${g3}` : g2 ? `${g1} ${g2}` : g1;
+            });
+            input.value = formatted;
+        }
+    </script>
+</head>
+
+<body>
+    <form action="/user/login" method="post">
+        <h1>Login</h1>
+        <div class="field">
+            <label for="aadhar">Aadhar : </label>
+            <input id="aadhar" type="text" name="aadharCardNumber" maxlength="14"
+                placeholder="Enter 12-digit Aadhar" required oninput="formatAadhar(this)">
+        </div>
+        <div class="field">
+            <label for="password">Password : </label>
+            <input id="password" type="password" placeholder="Enter Password" name="password" required>
+        </div>
+
+        <button>Login</button>
+    </form>
+</body>
+
+</html>
